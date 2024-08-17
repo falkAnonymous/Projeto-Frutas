@@ -9,6 +9,7 @@ namespace Fruta_Console.Classes
    static internal class Venda
     {
        static decimal valor;
+        static Enum Enum { get; set; }
 
     }
 }
