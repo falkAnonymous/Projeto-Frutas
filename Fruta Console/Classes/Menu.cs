@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Fruta_Console.Classes
@@ -49,6 +46,7 @@ namespace Fruta_Console.Classes
                     break;
             }
         }
+
         static void TelaComprar()
         {
             Console.WriteLine("     \x0022Tabela das Frutas\x0022\n");
@@ -65,6 +63,8 @@ namespace Fruta_Console.Classes
                 Console.Write($"{i+1}) Digite aqui o nome da Fruta que\n" +
                     "que você queira comprar :");
                 string Nfruta = Console.ReadLine().ToUpper();
+                Console.Write($"Quant: ");
+                string Qfruta = Console.ReadLine().ToUpper();
             }
         }
     }
