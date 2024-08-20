@@ -10,6 +10,7 @@ namespace Fruta_Console.Classes
         static List<Frutas> FrutasLocal = new List<Frutas>();
         static Frutas frutas;
 
+        // Função tela principal responsavel por gerar o menu para navegação
         static public void TelaPrincipal()
         {
             Console.WriteLine("Bem Vindo(a) a Frutaria do Sr.David");
@@ -57,7 +58,7 @@ namespace Fruta_Console.Classes
                     break;
             }
         }
-
+        // Função tela para mostrar o menu de Comprar
         static void TelaComprar()
         {
             Console.WriteLine("     \x0022Tabela das Frutas\x0022\n");
@@ -84,11 +85,11 @@ namespace Fruta_Console.Classes
             Console.Clear();
             TelaPrincipal();
         }
-
+        // Função tela para mostrar uma listas das frutas adicionado no carrinho
         static void TelaCarrinho()
         {
             Console.WriteLine("Seu Carrinho:\n");
-            foreach (var fruta in FrutasLocal)
+            foreach (Frutas fruta in FrutasLocal)
             {
                 Console.WriteLine($"{fruta.Nome} - Quantidade: {fruta.Quantidade}");
             }
@@ -97,6 +98,7 @@ namespace Fruta_Console.Classes
             Console.Clear();
             TelaPrincipal();
         }
+        // Função tela para mostrar o recibo do produto
         static void TelaTotal()
         {
             Venda.Recibo();
@@ -106,7 +108,7 @@ namespace Fruta_Console.Classes
             TelaPrincipal();
         }
     }
-
+    // Classe Frutas resposnavel por armazenar os nomes
     class Frutas
     {
         public string Nome { get; private set; }
@@ -118,7 +120,7 @@ namespace Fruta_Console.Classes
             Quantidade = quantidade;
         }
     }
-
+    // Classe Venda resposnavel por calcular as compras e o recibo
     class Venda
     {
         static decimal Desconto10 = 0.10M;

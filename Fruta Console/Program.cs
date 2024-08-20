@@ -7,6 +7,7 @@ namespace Fruta_Console
     {
         static void Main(string[] args)
         {
+            // Chamando a classe com as funcões staticas
             Menu.TelaPrincipal();
             Console.Read();
         }
