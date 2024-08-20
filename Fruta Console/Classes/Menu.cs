@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace Fruta_Console.Classes
@@ -77,6 +78,7 @@ namespace Fruta_Console.Classes
                 int Qfruta = int.Parse(Console.ReadLine());
                 FrutasLocal.Add(frutas = new Frutas(Nfruta, Qfruta));
             }
+            Venda.SomaComprar(FrutasLocal); // Recalcula o total após adicionar frutas
             Console.WriteLine("\nPressione qualquer tecla para voltar ao menu principal.");
             Console.ReadKey();
             Console.Clear();
@@ -97,7 +99,7 @@ namespace Fruta_Console.Classes
         }
         static void TelaTotal()
         {
-            Venda.SomaComprar(FrutasLocal);
+            Venda.Recibo();
             Console.WriteLine("\nPressione qualquer tecla para voltar ao menu principal.");
             Console.ReadKey();
             Console.Clear();
@@ -119,45 +121,64 @@ namespace Fruta_Console.Classes
 
     class Venda
     {
-       static decimal Desconto10 = 0.10M;
-       static decimal Desconto5 = 5.0M;
+        static decimal Desconto10 = 0.10M;
+        static decimal Desconto5 = 5.0M;
 
-       static public void SomaComprar(List<Frutas> frutas)
+        static decimal Total = 0.0M;
+        static int TotalFrutas = 0;
+        static public void SomaComprar(List<Frutas> frutas)
         {
-            decimal total = 0.0M;
-            int totalFrutas = 0;
 
             foreach (Frutas fruta in frutas)
             {
                 switch (fruta.Nome)
                 {
                     case "MAÇÃ":
-                        total += fruta.Quantidade * 3.00M;
+                        Total += fruta.Quantidade * 3.00M;
                         break;
                     case "BANANA":
-                        total += fruta.Quantidade * 1.50M;
+                        Total += fruta.Quantidade * 1.50M;
                         break;
                     case "LARANJA":
-                        total += fruta.Quantidade * 2.00M;
+                        Total += fruta.Quantidade * 2.00M;
                         break;
                     case "UVA":
-                        total += fruta.Quantidade * 4.00M;
+                        Total += fruta.Quantidade * 4.00M;
                         break;
                 }
-                totalFrutas += fruta.Quantidade;
-            }
+                TotalFrutas += fruta.Quantidade;
 
-            if (total > 50.00M)
+            }
+                if (Total > 50.00M)
+                {
+                    Total -= Total * Desconto10;
+                }
+
+                if (TotalFrutas > 20)
+                {
+                    Total -= Desconto5;
+                }
+            
+        }
+
+        static public void Recibo()
+        {
+            Console.WriteLine("===================================");
+            Console.WriteLine("          RECIBO DE COMPRA         ");
+            Console.WriteLine("===================================");
+            Console.WriteLine($"Total: R$ {Total + (Total * Desconto10) + Desconto5:F2}");
+            if (Total > 50.00M)
             {
-                total -= total * Desconto10;
+                Console.WriteLine($"Desconto (10%): -R$ {Total * Desconto10:F2}");
             }
-
-            if (totalFrutas > 20)
+            if (TotalFrutas > 20)
             {
-                total -= Desconto5;
+                Console.WriteLine($"Desconto adicional: -R$ {Desconto5:F2}");
             }
+            Console.WriteLine("-----------------------------------");
+            Console.WriteLine($"Total com Desconto: R$ {Total:F2}");
+            Console.WriteLine("===================================");
 
-            Console.WriteLine($"Total após descontos: R$ {total:F2}");
         }
     }
 }
